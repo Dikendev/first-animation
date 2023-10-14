@@ -53,8 +53,8 @@ export default makeScene2D(function* (view) {
     letter3().end(1, 5),
   );
   yield* all(
-    letter1().fill('#1e00e4', 1),
-    letter2().fill('#1e00e4', 1),
-    letter3().fill('#1e00e4', 1)
+    letter1().fill('#1e00e4', 0.5),
+    letter2().fill('#1e00e4', 0.5),
+    letter3().fill('#1e00e4', 0.5)
   );
 });
