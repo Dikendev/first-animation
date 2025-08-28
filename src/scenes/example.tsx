@@ -15,7 +15,7 @@ export default makeScene2D(function* (view) {
       start={0}
       position={[-355, -230]}
       end={0}
-      scale={10} 
+      scale={10}
     ></Path>,
     // ... and so on for each letter
   );
@@ -23,13 +23,13 @@ export default makeScene2D(function* (view) {
   view.add(
     <Path
       ref={letter2}
-      data="M47.8182335,26.7476954 L47.8182335,10.8092589 L31.8778477,10.8092589 L31.8778477,37.3754315 L47.8172589,37.3754315 L47.8172589,32.0625381 L37.1912284,32.0625381 L37.1912284,26.7476954 L47.8182335,26.7476954 L47.8182335,26.7476954 Z M37.1912284,16.120934 L42.5050964,16.120934 L42.5050964,21.4350457 L37.1912284,21.4350457 L37.1912284,16.120934 Z" 
+      data="M47.8182335,26.7476954 L47.8182335,10.8092589 L31.8778477,10.8092589 L31.8778477,37.3754315 L47.8172589,37.3754315 L47.8172589,32.0625381 L37.1912284,32.0625381 L37.1912284,26.7476954 L47.8182335,26.7476954 L47.8182335,26.7476954 Z M37.1912284,16.120934 L42.5050964,16.120934 L42.5050964,21.4350457 L37.1912284,21.4350457 L37.1912284,16.120934 Z"
       stroke={'#1e00e4'}
       lineWidth={1}
       position={[-355, -230]}
       start={0}
       end={0}
-      scale={10} 
+      scale={10}
     ></Path>
     // ... and so on for each letter
   );
@@ -43,7 +43,7 @@ export default makeScene2D(function* (view) {
       position={[-355, -230]}
       start={0}
       end={0}
-      scale={10} 
+      scale={10}
     ></Path>
   );
 
@@ -52,6 +52,7 @@ export default makeScene2D(function* (view) {
     letter2().end(1, 4),
     letter3().end(1, 5),
   );
+
   yield* all(
     letter1().fill('#1e00e4', 0.5),
     letter2().fill('#1e00e4', 0.5),
