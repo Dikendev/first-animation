@@ -15,6 +15,7 @@ export default makeScene2D(function* (view) {
   const svgPaths = yield loadSvgPaths("./consistem-logo.svg");
   const letters = createRef<Path>();
   const highlight = createRef<Path>();
+  const highlightSoft = createRef<Path>();
 
   const sweep = createSignal(-0.15);
 
@@ -49,12 +50,32 @@ export default makeScene2D(function* (view) {
 
   view.add(
     <Path
+      ref={highlightSoft}
+      data={svgPaths[0]}
+      stroke={'#ffffff'}
+      lineWidth={20}
+      start={sweep}
+      end={() => sweep() + 0.12}
+      scale={0.5}
+      position={[-60, -60]}
+      opacity={0}
+      lineCap="round"
+      lineJoin="round"
+      antialiased={true}
+      shadowColor={'#ffffff'}
+      shadowOffset={[0, 0]}
+      shadowBlur={12}
+    />
+  );
+
+  view.add(
+    <Path
       ref={highlight}
       data={svgPaths[0]}
       stroke={'#ffffff'}
-      lineWidth={15}
+      lineWidth={10}
       start={sweep}
-      end={() => sweep() + 0.14}
+      end={() => sweep() + 0.12}
       scale={0.5}
       position={[-60, -60]}
       opacity={0}
@@ -73,11 +94,16 @@ export default makeScene2D(function* (view) {
   );
 
   yield* all(
+    highlightSoft().opacity(0.7, 0.1),
     highlight().opacity(1, 0.1),
     sweep(1, 0.9, easeOutCubic),
+    letters().shadowBlur(12, 0).to(20, 0.45).to(12, 0.45)
   );
 
-  yield* highlight().opacity(0, 0.2);
+  yield* all(
+    highlight().opacity(0, 0.2),
+    highlightSoft().opacity(0, 0.2)
+  );
 
   yield* all(
     letters().shadowBlur(15, 1).to(25, 1).to(15, 0.5)
