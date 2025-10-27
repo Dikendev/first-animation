@@ -38,7 +38,7 @@ export default makeScene2D(function* (view) {
       start={0}
       end={0}
       scale={0.5}
-      position={[-60, -60]}
+      position={[-50, -60]}
       shadowColor='rgba(0, 0, 0, 0.5)'
       shadowOffset={[6, 6]}
       shadowBlur={7}
@@ -57,7 +57,7 @@ export default makeScene2D(function* (view) {
       start={sweep}
       end={() => sweep() + 0.12}
       scale={0.5}
-      position={[-60, -60]}
+      position={[-50, -60]}
       opacity={0}
       lineCap="round"
       lineJoin="round"
@@ -77,7 +77,7 @@ export default makeScene2D(function* (view) {
       start={sweep}
       end={() => sweep() + 0.12}
       scale={0.5}
-      position={[-60, -60]}
+      position={[-50, -60]}
       opacity={0}
       lineCap="round"
       lineJoin="round"
