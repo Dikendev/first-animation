@@ -1,5 +1,5 @@
-import { makeScene2D, Path } from '@motion-canvas/2d';
-import { all, createRef, easeOutCubic, createSignal } from '@motion-canvas/core';
+import { makeScene2D, Path, Rect } from '@motion-canvas/2d';
+import { all, createRef, easeOutCubic, createSignal, waitFor, easeInCubic } from '@motion-canvas/core';
 import { Gradient } from '@motion-canvas/2d';
 
 async function loadSvgPaths(url: string): Promise<string[]> {
@@ -16,6 +16,7 @@ export default makeScene2D(function* (view) {
   const letters = createRef<Path>();
   const highlight = createRef<Path>();
   const highlightSoft = createRef<Path>();
+  const flashRect = createRef<Rect>();
 
   const sweep = createSignal(-0.15);
 
@@ -38,8 +39,8 @@ export default makeScene2D(function* (view) {
       start={0}
       end={0}
       scale={0.5}
-      position={[-50, -60]}
-      shadowColor='rgba(0, 0, 0, 0.5)'
+      position={[-60, -60]}
+      shadowColor="rgba(0, 0, 0, 0.5)"
       shadowOffset={[6, 6]}
       shadowBlur={7}
       lineCap="round"
@@ -52,17 +53,17 @@ export default makeScene2D(function* (view) {
     <Path
       ref={highlightSoft}
       data={svgPaths[0]}
-      stroke={'#ffffff'}
+      stroke="#ffffff"
       lineWidth={20}
       start={sweep}
       end={() => sweep() + 0.12}
       scale={0.5}
-      position={[-50, -60]}
+      position={[-60, -60]}
       opacity={0}
       lineCap="round"
       lineJoin="round"
       antialiased={true}
-      shadowColor={'#ffffff'}
+      shadowColor="#ffffff"
       shadowOffset={[0, 0]}
       shadowBlur={12}
     />
@@ -72,12 +73,12 @@ export default makeScene2D(function* (view) {
     <Path
       ref={highlight}
       data={svgPaths[0]}
-      stroke={'#ffffff'}
+      stroke="#ffffff"
       lineWidth={10}
       start={sweep}
       end={() => sweep() + 0.12}
       scale={0.5}
-      position={[-50, -60]}
+      position={[-60, -60]}
       opacity={0}
       lineCap="round"
       lineJoin="round"
@@ -85,15 +86,27 @@ export default makeScene2D(function* (view) {
     />
   );
 
+  view.add(
+    <Rect
+      ref={flashRect}
+      fill="#ffffff"
+      width="100%"
+      height="100%"
+      opacity={0}
+      zIndex={999}
+    />
+  );
+
+  yield* all(letters().end(1, 2.5));
+  yield* all(letters().fill('#312D31', 1));
+
   yield* all(
-    letters().end(1, 2.5),
+    flashRect().opacity(0.7, 0.5, easeInCubic),
+    letters().shadowBlur(15, 0.3, easeOutCubic),
   );
 
   yield* all(
-    letters().fill('#312D31', 1),
-  );
-
-  yield* all(
+    flashRect().opacity(0, 0.6, easeOutCubic),
     highlightSoft().opacity(0.7, 0.1),
     highlight().opacity(1, 0.1),
     sweep(1, 0.9, easeOutCubic),
@@ -106,6 +119,6 @@ export default makeScene2D(function* (view) {
   );
 
   yield* all(
-    letters().shadowBlur(15, 1).to(25, 1).to(15, 0.5)
+    letters().shadowBlur(15, 1).to(10, 1).to(5, 0.5)
   );
 });
