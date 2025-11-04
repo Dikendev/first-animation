@@ -127,9 +127,9 @@ export default makeScene2D(function* (view) {
     <Rect
       ref={glass}
       fill={glassGradient}
-      size={[1600, 520]}
-      position={[-300, -60]}
-      rotation={20}
+      size={[900, 520]}
+      position={[-300, 0]}
+      rotation={18}
       opacity={0}
     />
   );
@@ -138,9 +138,9 @@ export default makeScene2D(function* (view) {
     <Rect
       ref={glassEdge}
       fill={edgeGradient}
-      size={[1600, 520]}
-      position={[-300, -60]}
-      rotation={20}
+      size={[900, 520]}
+      position={[-300, 0]}
+      rotation={18}
       opacity={0}
     />
   );
@@ -161,15 +161,9 @@ export default makeScene2D(function* (view) {
 
   yield* all(
     highlight().opacity(0, 0.2),
-    highlightSoft().opacity(0, 0.2)
-  );
-
-  yield* all(
+    highlightSoft().opacity(0, 0.2),
     glass().opacity(1, 0.15),
-    glassEdge().opacity(0.9, 0.15)
-  );
-
-  yield* all(
+    glassEdge().opacity(0.9, 0.15),
     glass().position([400, -60], 5, easeInOutSine),
     glassEdge().position([400, -60], 5, easeInOutSine),
   );
